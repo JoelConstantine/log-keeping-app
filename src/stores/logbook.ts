@@ -1,6 +1,8 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { TableItem, TableHeader } from "@/components/DataTable.vue"
+
+
 
 export interface Logbook {
     title: string,
@@ -25,7 +27,7 @@ export const useLogbookStore = defineStore("logbook", () => {
     const addEntry = (logbookName: string, entry: LogbookEntry) => {
         const logbook = logbooks.value.find(lb => lb.title === logbookName)
         if (!logbook) return
-        logbook.items.push(entry)
+        logbook.items.push({ ...entry })
         logbooks.value = logbooks.value.map(lg => {
             if (lg.title === logbookName) return logbook
             return lg

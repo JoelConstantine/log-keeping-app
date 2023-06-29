@@ -4,18 +4,13 @@ import { useLogbookStore } from "@/stores/logbook"
 
 const logbookStore = useLogbookStore()
 
-const items = [
-    {
-        date: new Date('06/10/2023'),
-        activity: "Watered",
-        notes: "..."
-    }
-]
-
 const headers = [
     {
         key: "date",
-        label: "Date"
+        label: "Date",
+        format: (value: Date) => {
+            return value.toDateString()
+        }
     },
     {
         key: "activity",
@@ -30,7 +25,7 @@ const headers = [
 logbookStore.addLogbook({
     title: "Garden",
     headers,
-    items
+    items: []
 })
 
 logbookStore.addEntry("Garden", {

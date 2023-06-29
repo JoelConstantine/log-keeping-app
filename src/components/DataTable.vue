@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
+
 
 export interface TableItem {
     [key: string]: any
@@ -10,7 +13,7 @@ export interface TableHeader {
     format?: Function, 
 }
 
-defineProps({
+const props = defineProps({
     items: {
         type: Array<TableItem>,
         default: () => []
@@ -20,6 +23,19 @@ defineProps({
         default: () => []
     }
 })
+
+const formattedItems = computed(() => {
+    const formattedItems = props.items.map(item => {
+        const new_item = { ...item }
+        props.headers.forEach(header => {
+            if (header.format) {
+                new_item[header.key] = header.format(new_item[header.key])   
+            }
+        })
+        return new_item
+    })
+    return formattedItems
+})
 </script>
 
 <template>
@@ -28,7 +44,7 @@ defineProps({
             <th v-for="header in headers" :key="header.key" class="text-left">{{  header.label }}</th>
         </thead>
         <tbody>
-            <tr v-for="(item, idx) in items" :key="idx">
+            <tr v-for="(item, idx) in formattedItems" :key="idx">
                 <td v-for="header in headers" :key="header.key">{{ item[header.key] }}</td>
             </tr>
         </tbody>
