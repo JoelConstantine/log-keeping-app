@@ -10,11 +10,18 @@ export default defineConfig({
     vue({
       template: { transformAssetUrls }
     }),
-    vuetify({ autoImport: true})
+    vuetify({ 
+      autoImport: true, 
+    })
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {}
     }
   }
 })
