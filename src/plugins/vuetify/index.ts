@@ -8,16 +8,16 @@ import defaults from './defaults'
 import 'vuetify/styles'
 
 const icons = {
-    defaultSet: 'mdi',
-    aliases,
-    sets: {
-        mdi
-    }
+  defaultSet: 'mdi',
+  aliases,
+  sets: {
+    mdi
+  }
 }
 
 export default createVuetify({
-    components,
-    directives,
-    icons,
-    defaults
+  components,
+  directives,
+  icons,
+  defaults
 })
