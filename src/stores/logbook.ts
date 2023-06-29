@@ -21,6 +21,7 @@ export const useLogbookStore = defineStore("logbook", () => {
     const logbooks = ref([] as Array<Logbook>)
 
     const addLogbook = (logbook: Logbook) => {
+        if (logbooks.value.find(lg => lg.title === logbook.title)) return
         logbooks.value.push(logbook)
     }
 

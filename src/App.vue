@@ -27,22 +27,14 @@ logbookStore.addLogbook({
     headers,
     items: []
 })
-
-logbookStore.addEntry("Garden", {
-  date: new Date(),
-  activity: "Watered",
-  notes: ""
-})
 </script>
 
 <template>
   <v-layout>
-  <v-app-bar flat height="48" title="Logbook"></v-app-bar>
-
-  <v-main>
-    <RouterView style="{ margin-top: 48px }"/>
-  </v-main>
- 
+    <v-app-bar flat height="48" title="Logbook"></v-app-bar>
+    <v-main>
+        <RouterView style="{ margin-top: 48px }"/>
+    </v-main>
   </v-layout>
 </template>
 

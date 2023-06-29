@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { type LogbookEntry } from '@/stores/logbook';
+import { reactive, ref } from 'vue';
+import { type LogbookEntry, type Logbook } from '@/stores/logbook';
 
 const emits = defineEmits(['event-add'])
+const journal = ref()
+
 
 defineProps({
     logbooks: {
-        type: Array<LogbookEntry>
+        type: Array<Logbook>
     }
 })
 
@@ -18,25 +20,32 @@ const getNewEntry = () : LogbookEntry => {
     }
 }
 
-const entry = reactive(getNewEntry())
+let entry = reactive(getNewEntry())
 
 const addNewEvent = () => {
-    emits('event-add', entry)
+    console.log(journal.value)
+    if (!journal.value) return
+    emits('event-add', { 
+        journal: journal.value,
+        entry
+    })
+    entry.activity = ""
+    entry.notes = ""
 }
 </script>
 <template>
  <v-row>
-            <v-col>
-                <v-select density="compact" label="Journal" :items="logbooks"></v-select>
-            </v-col>
-            <v-col>
-                <v-text-field density="compact" v-model="entry.activity" label="Activity"></v-text-field>
-            </v-col>
-            <v-col>
-                <v-text-field density="compact" v-model="entry.notes" label="Activity"></v-text-field>
-            </v-col>
-            <v-col>
-                <v-btn variant="outlined" label="Save" @click="addNewEvent">Save</v-btn>
-            </v-col>
-        </v-row>
+    <v-col cols="2">
+        <v-select label="Journal" :items="logbooks" v-model="journal"></v-select>
+    </v-col>
+    <v-col cols="3">
+        <v-text-field v-model="entry.activity" label="Activity"></v-text-field>
+    </v-col>
+    <v-col>
+        <v-text-field v-model="entry.notes" label="Notes"></v-text-field>
+    </v-col>
+    <v-col cols="1">
+        <v-btn class="mt-1" variant="outlined" label="Save" @click="addNewEvent">Add</v-btn>
+    </v-col>
+</v-row>
 </template>

@@ -2,6 +2,9 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
+
+import defaults from './defaults'
+
 import 'vuetify/styles'
 
 const icons = {
@@ -15,5 +18,6 @@ const icons = {
 export default createVuetify({
     components,
     directives,
-    icons
+    icons,
+    defaults
 })
